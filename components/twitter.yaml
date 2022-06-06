@@ -1,0 +1,29 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: twitter-binding
+  namespace: default
+spec:
+  type: bindings.twitter
+  version: v1
+  metadata:
+  - name: query
+    value: "#WWDC22"
+  - name: consumerKey
+    secretKeyRef:
+      name: apiKey
+      key:  apiKey
+  - name: consumerSecret
+    secretKeyRef:
+      name: apiKeySecret
+      key:  apiKeySecret
+  - name: accessToken
+    secretKeyRef:
+      name: accessToken
+      key:  accessToken
+  - name: accessSecret
+    secretKeyRef:
+      name: accessSecret
+      key:  accessSecret
+auth:
+  secretStore: twitter-secret-store
