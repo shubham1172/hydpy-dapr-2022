@@ -3,7 +3,7 @@ from dapr.ext.grpc import App, InvokeMethodRequest, InvokeMethodResponse
 import json
 import os
 
-APP_PORT = os.getenv("APP_PORT", "50052")
+APP_PORT = os.getenv("APP_PORT", "50050")
 BANK_STORE_NAME = "bank-store"
 
 app = App()

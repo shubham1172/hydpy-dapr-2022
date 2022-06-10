@@ -4,7 +4,7 @@ from dapr.ext.grpc import App, BindingRequest
 import json
 import os
 
-APP_PORT = os.getenv("APP_PORT", "50051")
+APP_PORT = os.getenv("APP_PORT", "50052")
 TWITTER_BINDING_NAME = "twitter-binding"
 TWEETS_QUEUE_NAME="tweets-queue"
 TWEET_QUEUE_TOPIC="tweets"

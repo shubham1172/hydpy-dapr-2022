@@ -9,10 +9,11 @@ import json
 import os
 import re
 
-APP_PORT = os.getenv("APP_PORT", "50052")
+APP_PORT = os.getenv("APP_PORT", "50051")
 BANKER_APP_ID = os.getenv("BANKER_APP_ID", "banker")
 TWEETS_QUEUE_NAME = "tweets-queue"
 TWEET_TOPIC = "tweets"
+TWEET_STORE_NAME = "tweet-store"
 COMMAND_REGEX = re.compile(r'(debit|credit) ([0-9]{1,3})$')
 
 app = App()
@@ -23,10 +24,18 @@ def get_tweet(event: v1.Event) -> TopicEventResponse:
     tweet = json.loads(event.Data())
     print(f'Got a new tweet by {tweet["author"]}!', flush=True)
 
+    save_tweet(tweet)
     process_command(tweet["content"])
 
     return TopicEventResponse('success')
 
+def save_tweet(tweet):
+    with DaprClient() as d:
+        try:
+            d.save_state(TWEET_STORE_NAME, tweet["id"], json.dumps(tweet))
+            print(f'Saved tweet to store.', flush=True)
+        except Exception as e:
+            print(f'Failed to save tweet to store: {e}', flush=True)
 
 def process_command(command):
     res = COMMAND_REGEX.search(command)
