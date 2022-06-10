@@ -6,13 +6,14 @@ import os
 
 APP_PORT = os.getenv("APP_PORT", "50052")
 TWITTER_BINDING_NAME = "twitter-binding"
-TWEETS_QUEUE_NAME="tweets-queue"
-TWEET_QUEUE_TOPIC="tweets"
+TWEETS_QUEUE_NAME = "tweets-queue"
+TWEET_QUEUE_TOPIC = "tweets"
 
 app = App()
 
+
 @app.binding(TWITTER_BINDING_NAME)
-def binding(request: BindingRequest):    
+def binding(request: BindingRequest):
     tweet = extract_tweets(json.loads(request.text()))
     print(f'Got a new tweet by {tweet["author"]}!', flush=True)
 
@@ -24,6 +25,7 @@ def binding(request: BindingRequest):
             data_content_type='application/json'
         )
         print(f'Published to queue.', flust=True)
+
 
 def extract_tweets(payload):
     content = payload['text']

@@ -29,6 +29,7 @@ def get_tweet(event: v1.Event) -> TopicEventResponse:
 
     return TopicEventResponse('success')
 
+
 def save_tweet(tweet):
     with DaprClient() as d:
         try:
@@ -36,6 +37,7 @@ def save_tweet(tweet):
             print(f'Saved tweet to store.', flush=True)
         except Exception as e:
             print(f'Failed to save tweet to store: {e}', flush=True)
+
 
 def process_command(command):
     res = COMMAND_REGEX.search(command)
@@ -47,7 +49,8 @@ def process_command(command):
     amount = int(res.group(2))
 
     with DaprClient() as d:
-        raw = d.invoke_method(BANKER_APP_ID, command_type, json.dumps({"amount": amount}))
+        raw = d.invoke_method(BANKER_APP_ID, command_type,
+                              json.dumps({"amount": amount}))
         print(
             f'Invoked banker service with {command_type} {amount}.', flush=True)
 

@@ -13,25 +13,25 @@ app = App()
 def debit(request: InvokeMethodRequest) -> InvokeMethodResponse:
     amount = json.loads(request.text())["amount"]
     print(f'Debiting {amount} from account.', flush=True)
-    try:
-        balance = transact(-int(amount))
-        print(f'New balance is {balance}.', flush=True)
-        return InvokeMethodResponse(json.dumps({"status": "success", "balance": balance}))
-    except Exception as e:
-        print(f'Failed to debit {amount}: {e}', flush=True)
-        return InvokeMethodResponse(json.dumps({"status": "failure", "error": str(e)}))
+    return process('debit', int(amount) * -1)
+
 
 @app.method(name='credit')
 def credit(request: InvokeMethodRequest) -> InvokeMethodResponse:
     amount = json.loads(request.text())["amount"]
     print(f'Crediting {amount} to account.', flush=True)
+    return process('credit', int(amount))
+
+
+def process(method: str, amount: int) -> InvokeMethodResponse:
     try:
-        balance = transact(int(amount))
+        balance = transact(amount)
         print(f'New balance is {balance}.', flush=True)
         return InvokeMethodResponse(json.dumps({"status": "success", "balance": balance}))
     except Exception as e:
-        print(f'Failed to credit {amount}: {e}', flush=True)
+        print(f'Failed to {method} {amount}: {e}', flush=True)
         return InvokeMethodResponse(json.dumps({"status": "failure", "error": str(e)}))
+
 
 def transact(amount: int) -> int:
     with DaprClient() as d:
