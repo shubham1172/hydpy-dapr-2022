@@ -5,3 +5,5 @@ This example uses the User Access tokens using OAuth 1.0 flow for authenticating
 1. Twitter developer portal: https://developer.twitter.com/en/portal
 1. Use the Postman collection https://t.co/twitter-api-postman for easily generating credentials.
 1. Use https://webhook.site for registering a temporary webhook with Twitter
+
+Make sure that you have elevated access to the Twitter developer portal.

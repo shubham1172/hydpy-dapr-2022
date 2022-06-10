@@ -26,3 +26,7 @@ TODO: Add more details.z
 #hydpy credit 2000
 
 Twitter provider --> Pubsub --> Tweet processor ---> Invokes Bank App ---> Stores records ---> UI
+
+```bash
+dapr run --app-id test --app-port 50051 --app-protocol grpc --log-level info --components-path ./components/ python3 services/tweet-provider/app.py
+ ```

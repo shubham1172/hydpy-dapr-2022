@@ -8,7 +8,7 @@ spec:
   version: v1
   metadata:
   - name: query
-    value: "@YouTube"
+    value: "MacBook"
   - name: consumerKey
     secretKeyRef:
       name: apiKey
