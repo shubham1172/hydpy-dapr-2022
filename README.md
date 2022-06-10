@@ -2,29 +2,7 @@
 
 This respository contains the source code for my demo at HydPy.
 
-Architecture:
-Twitter ----> Invoke ----> Sentiment Analysis ----> Tweets queue ---> Tweets viewer
-
-Components:
-Twitter binding
-Secret store for Twitter secrets
-Pub/Sub
-State Store
-
-Concepts:
-- Service invocation
-- State/secret store
-- Messaging pub/sub
-- Resiliency
-- Observability
-- Swapping components
-
-TODO: Add more details.
-
-#hydpy_dapr debit 10
-#hydpy_dapr credit 2000
-
-Twitter provider --> Pubsub --> Tweet processor ---> Invokes Bank App ---> Stores records ---> UI
+TODO: Add architecture
 
 ```bash
 dapr run --app-id banker --app-port 50050 --app-protocol grpc --log-level info --components-path ./components/ python3 services/banker/app.py
