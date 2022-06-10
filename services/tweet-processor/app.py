@@ -2,9 +2,9 @@
 # It invokes the correct method from the banker service to update the account.
 
 from cloudevents.sdk.event import v1
-from dapr.ext.grpc import App
 from dapr.clients.grpc._response import TopicEventResponse
 from dapr.clients import DaprClient
+from dapr.ext.grpc import App
 import json
 import os
 import re
@@ -49,6 +49,7 @@ def process_command(command):
         else:
             print(
                 f'Failed to process command {command_type}, balance is {result["balance"]}, error: {result["error"]}.', flush=True)
+
 
 if __name__ == '__main__':
     print("Starting app on port {}".format(APP_PORT), flush=True)
