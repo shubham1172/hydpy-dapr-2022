@@ -38,17 +38,17 @@ def process_command(command):
     amount = int(res.group(2))
 
     with DaprClient() as d:
-        raw = d.invoke_method(BANKER_APP_ID, command_type, amount)
+        raw = d.invoke_method(BANKER_APP_ID, command_type, json.dumps({"amount": amount}))
         print(
             f'Invoked banker service with {command_type} {amount}.', flush=True)
 
-        result = json.loads(raw)
+        result = json.loads(raw.data)
         if result['status'] == 'success':
             print(
                 f'Successfully processed command {command_type}, balance is {result["balance"]}.', flush=True)
         else:
             print(
-                f'Failed to process command {command_type}, balance is {result["balance"]}, error: {result["error"]}.', flush=True)
+                f'Failed to process command {command_type}, error: {result["error"]}.', flush=True)
 
 
 if __name__ == '__main__':

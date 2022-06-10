@@ -19,11 +19,10 @@ Concepts:
 - Observability
 - Swapping components
 
-TODO: Add more details.z
+TODO: Add more details.
 
-
-#hydpy debit 100
-#hydpy credit 2000
+#hydpy_dapr debit 10
+#hydpy_dapr credit 2000
 
 Twitter provider --> Pubsub --> Tweet processor ---> Invokes Bank App ---> Stores records ---> UI
 

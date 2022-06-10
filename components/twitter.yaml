@@ -8,7 +8,7 @@ spec:
   version: v1
   metadata:
   - name: query
-    value: "MacBook"
+    value: "#hydpy_dapr"
   - name: consumerKey
     secretKeyRef:
       name: apiKey
