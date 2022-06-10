@@ -1,9 +1,13 @@
+from click import echo
+from dapr.clients import DaprClient
 from dapr.ext.grpc import App, BindingRequest
 import json
 import os
 
 APP_PORT = os.getenv("APP_PORT", "50051")
 TWITTER_BINDING_NAME = "twitter-binding"
+TWEETS_QUEUE_NAME="tweets-queue"
+TWEET_QUEUE_TOPIC="tweets"
 
 app = App()
 
@@ -11,6 +15,15 @@ app = App()
 def binding(request: BindingRequest):    
     tweet = extract_tweets(json.loads(request.text()))
     print(f'Got a new tweet by {tweet["author"]}!', flush=True)
+
+    with DaprClient() as d:
+        d.publish_event(
+            TWEETS_QUEUE_NAME,
+            TWEET_QUEUE_TOPIC,
+            json.dumps(tweet),
+            data_content_type='application/json'
+        )
+        print(f'Published to queue.', flust=True)
 
 def extract_tweets(payload):
     content = payload['text']
