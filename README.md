@@ -2,7 +2,12 @@
 
 This respository contains the source code for my demo at HydPy.
 
-TODO: Add architecture
+## Architecture
+
+![architecture](./docs/architecture.png)
+![activity](./docs/activity.png)
+
+## Running it locally
 
 ```bash
 dapr run --app-id banker --app-port 50050 --app-protocol grpc --log-level info --components-path ./components/ python3 services/banker/app.py
